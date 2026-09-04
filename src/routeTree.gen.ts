@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as MyPostsRouteImport } from './routes/my-posts'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PostPostIdRouteImport } from './routes/post.$postId'
@@ -30,6 +31,11 @@ const CreateRoute = CreateRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyPostsRoute = MyPostsRouteImport.update({
+  id: '/my-posts',
+  path: '/my-posts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RegisterRoute = RegisterRouteImport.update({
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/create': typeof CreateRoute
   '/login': typeof LoginRoute
+  '/my-posts': typeof MyPostsRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
   '/post/$postId': typeof PostPostIdRouteWithChildren
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/create': typeof CreateRoute
   '/login': typeof LoginRoute
+  '/my-posts': typeof MyPostsRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
   '/post/$postId': typeof PostPostIdRouteWithChildren
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/create': typeof CreateRoute
   '/login': typeof LoginRoute
+  '/my-posts': typeof MyPostsRoute
   '/register': typeof RegisterRoute
   '/search': typeof SearchRoute
   '/post/$postId': typeof PostPostIdRouteWithChildren
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/create'
     | '/login'
+    | '/my-posts'
     | '/register'
     | '/search'
     | '/post/$postId'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/create'
     | '/login'
+    | '/my-posts'
     | '/register'
     | '/search'
     | '/post/$postId'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/create'
     | '/login'
+    | '/my-posts'
     | '/register'
     | '/search'
     | '/post/$postId'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CreateRoute: typeof CreateRoute
   LoginRoute: typeof LoginRoute
+  MyPostsRoute: typeof MyPostsRoute
   RegisterRoute: typeof RegisterRoute
   SearchRoute: typeof SearchRoute
   PostPostIdRoute: typeof PostPostIdRouteWithChildren
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-posts': {
+      id: '/my-posts'
+      path: '/my-posts'
+      fullPath: '/my-posts'
+      preLoaderRoute: typeof MyPostsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/register': {
@@ -190,6 +210,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CreateRoute: CreateRoute,
   LoginRoute: LoginRoute,
+  MyPostsRoute: MyPostsRoute,
   RegisterRoute: RegisterRoute,
   SearchRoute: SearchRoute,
   PostPostIdRoute: PostPostIdRouteWithChildren,

@@ -119,8 +119,19 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <AuthProvider>
+        <div className="flex min-h-screen flex-col">
+          <NavBar />
+          <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-10">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+          <footer className="border-t border-border py-6 text-center text-xs text-muted-foreground">
+            Blogly — a small community blog.
+          </footer>
+        </div>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
+
