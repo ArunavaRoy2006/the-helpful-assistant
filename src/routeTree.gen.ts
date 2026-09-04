@@ -54,9 +54,9 @@ const PostPostIdIndexRoute = PostPostIdIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const PostPostIdEditRoute = PostPostIdEditRouteImport.update({
-  id: '/post/$postId/edit',
-  path: '/post/$postId/edit',
-  getParentRoute: () => rootRouteImport,
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => PostPostIdRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -130,7 +130,6 @@ export interface RootRouteChildren {
   MyPostsRoute: typeof MyPostsRoute
   RegisterRoute: typeof RegisterRoute
   SearchRoute: typeof SearchRoute
-  PostPostIdEditRoute: typeof PostPostIdEditRoute
   PostPostIdIndexRoute: typeof PostPostIdIndexRoute
 }
 
@@ -187,10 +186,10 @@ declare module '@tanstack/react-router' {
     }
     '/post/$postId/edit': {
       id: '/post/$postId/edit'
-      path: '/post/$postId/edit'
+      path: '/edit'
       fullPath: '/post/$postId/edit'
       preLoaderRoute: typeof PostPostIdEditRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof PostPostIdRoute
     }
   }
 }
@@ -202,7 +201,6 @@ const rootRouteChildren: RootRouteChildren = {
   MyPostsRoute: MyPostsRoute,
   RegisterRoute: RegisterRoute,
   SearchRoute: SearchRoute,
-  PostPostIdEditRoute: PostPostIdEditRoute,
   PostPostIdIndexRoute: PostPostIdIndexRoute,
 }
 export const routeTree = rootRouteImport
