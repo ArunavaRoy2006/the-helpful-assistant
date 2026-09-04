@@ -17,7 +17,7 @@ import { formatDate } from "@/components/PostCard";
 import { deletePost, getPost } from "@/services/posts";
 import { useAuth } from "@/lib/auth";
 
-export const Route = createFileRoute("/post/$postId")({
+export const Route = createFileRoute("/post/$postId/")({
   head: () => ({
     meta: [
       { title: "Post — Blogly" },
