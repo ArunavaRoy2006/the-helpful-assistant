@@ -2,6 +2,8 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
+export const PROFILE_UPDATED_EVENT = "blogly:profile-updated";
+
 const INTERNAL_EMAIL_DOMAIN = "blogly.internal";
 
 export const usernameToEmail = (username: string) =>
@@ -45,16 +47,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
     let active = true;
-    supabase
-      .from("profiles")
-      .select("username")
-      .eq("id", userId)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (active) setUsername(data?.username ?? null);
-      });
+    const load = () => {
+      supabase
+        .from("profiles")
+        .select("username")
+        .eq("id", userId)
+        .maybeSingle()
+        .then(({ data }) => {
+          if (active) setUsername(data?.username ?? null);
+        });
+    };
+    load();
+    window.addEventListener(PROFILE_UPDATED_EVENT, load);
     return () => {
       active = false;
+      window.removeEventListener(PROFILE_UPDATED_EVENT, load);
     };
   }, [session?.user.id]);
 

@@ -1,5 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
-import { usernameToEmail } from "@/lib/auth";
+import { PROFILE_UPDATED_EVENT, usernameToEmail } from "@/lib/auth";
 
 const USERNAME_RE = /^[a-zA-Z0-9_]{3,24}$/;
 
@@ -37,6 +37,8 @@ export async function register(username: string, password: string) {
       throw new Error("That username is already taken. Try another.");
     throw new Error("Something went wrong. Please try again in a moment.");
   }
+
+  window.dispatchEvent(new Event(PROFILE_UPDATED_EVENT));
 }
 
 export async function login(username: string, password: string) {
